@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accessing XML data</title>
+</head>
+<body bgcolor="pink">
+    <center>
+        <h1>Accessing XML Data</h1>
+        <div id="message"></div>
+        <input type="button" value="GET DATA" onClick="getStudentData()">
+    </center>
+
+    <script>
+        function getStudentData() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var xmlDoc = xhr.responseXML;
+                    var firstName = xmlDoc.getElementsByTagName("firstname")[0].textContent;
+                    var lastName = xmlDoc.getElementsByTagName("lastname")[0].textContent;
+                    var message = "Name: " + firstName + " " + lastName;
+                    document.getElementById("message").innerHTML = message;
+                }
+            };
+
+            xhr.open("GET", "school.xml", true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
